@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Midas Araneta | Portfolio</title>
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef8ff',
+                            100: '#d8eeff',
+                            200: '#b9e0ff',
+                            300: '#89ceff',
+                            400: '#52b4ff',
+                            500: '#2a95ff',
+                            600: '#1375f4',
+                            700: '#0d5ddf',
+                            800: '#114cb5',
+                            900: '#14418f',
+                            950: '#112957',
+                        },
+                        darkbg: '#05070f',
+                        darkcard: 'rgba(10, 15, 30, 0.7)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float-delayed 8s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glow-pulse 3s infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-12px) rotate(2deg)' },
+                        },
+                        'float-delayed': {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-8px) rotate(-3deg)' },
+                        },
+                        'glow-pulse': {
+                            '0%': { boxShadow: '0 0 5px rgba(37, 99, 235, 0.2), 0 0 10px rgba(37, 99, 235, 0.1)' },
+                            '100%': { boxShadow: '0 0 20px rgba(37, 99, 235, 0.6), 0 0 30px rgba(37, 99, 235, 0.3)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Premium CSS & Glassmorphism styles */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .dark .glass-card {
+            background: rgba(10, 15, 30, 0.55);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.25);
+        }
+
+        .light .glass-card:hover {
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        /* Ambient Glow effects */
+        .glow-blue {
+            filter: drop-shadow(0 0 15px rgba(37, 99, 235, 0.4));
+        }
+
+        .glow-green {
+            filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.5));
+        }
+
+        /* Scroll Progress Bar */
+        #progress-bar {
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, #3b82f6, #60a5fa, #1d4ed8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            transition: width 0.1s ease;
+        }
+
+        /* Custom Cursor Aura for desktop */
+        #cursor-glow {
+            pointer-events: none;
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, rgba(37, 99, 235, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .dark #cursor-glow {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(37, 99, 235, 0) 70%);
+        }
+
+        /* Animation utilities */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Grid Background Pattern */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+        }
+        .dark .grid-bg {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05070f;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1d4ed8;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans transition-colors duration-500 overflow-x-hidden selection:bg-brand-500 selection:text-white dark" id="body">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[110] bg-darkbg flex flex-col justify-center items-center transition-all duration-1000 ease-out">
+        <div class="relative flex flex-col items-center">
+            <!-- Animated Logo Ring -->
+            <div class="w-24 h-24 rounded-full border-4 border-slate-800 border-t-brand-500 animate-spin mb-6"></div>
+            <!-- Letter Marks -->
+            <div class="absolute top-6 flex items-center justify-center animate-pulse">
+                <img src="assets/logo.png" alt="Midas Araneta Logo" class="w-12 h-12 object-contain drop-shadow-[0_0_10px_rgba(42,149,255,0.45)]">
+            </div>
+            <h2 class="text-xl font-poppins font-bold text-slate-100 tracking-wider">Midas Araneta</h2>
+            <p class="text-xs text-brand-400 mt-2 tracking-widest uppercase">Quality & Code Redefined</p>
+            <div class="w-48 h-1 bg-slate-800 rounded-full mt-6 overflow-hidden">
+                <div class="h-full bg-brand-500 w-full animate-[loading_2s_ease-in-out_infinite]" style="transform-origin: left; animation: loaderBar 2s infinite;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        @keyframes loaderBar {
+            0% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+            100% { transform: scaleX(0); transform-origin: right; }
+        }
+    </style>
+
+    <!-- Scroll Progress and Desktop Cursor Glow -->
+    <div id="progress-bar"></div>
+    <div id="cursor-glow" class="hidden lg:block"></div>
+
+    <!-- Background Ambience Element (Dark Mode Glows) -->
+    <div class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 dark:bg-blue-950/20 blur-[120px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-brand-900/10 dark:bg-brand-950/20 blur-[120px] pointer-events-none z-0"></div>
+
+    <!-- FIXED TRANSPARENT NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-5 bg-transparent border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <!-- Left: Brand Logo -->
+            <a href="#home" class="flex items-center space-x-3 group">
+            <div class="w-13 h-13 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
+                <img src="assets/logo.png" alt="Midas Araneta Logo" class="w-12 h-12 object-contain drop-shadow-[0_0_10px_rgba(42,149,255,0.35)]">
+            </div>
+
+               <!-- <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-blue-700 flex items-center justify-center text-white font-poppins font-extrabold text-lg shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform duration-300">
+                    MA
+                </div> -->
+            </a>
+
+            <!-- Right: Navigation Links (Desktop) -->
+            <div class="hidden lg:flex items-center space-x-1 ml-auto mr-1">
+                <a href="#home" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="home">Home</a>
+                <a href="#about" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="about">About</a>
+                <a href="#skills" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="skills">Skills</a>
+                <a href="#experience" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="experience">Experience</a>
+                <a href="#projects" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="projects">Projects</a>
+                <a href="#publications" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="publications">Publications</a>
+                <a href="#certifications" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="certifications">Certification</a>
+                <a href="#contact" class="nav-link px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all duration-200" data-section="contact">Contact</a>
+            </div>
+
+            <!-- Right Actions (Theme Switch + RESUME Link) -->
+            <div class="hidden lg:flex items-center space-x-2">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2.5 text-slate-800 dark:text-slate-200 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300 group" aria-label="Toggle Theme">
+                    <!-- Moon Icon (Dark Mode View) -->
+                    <i id="theme-icon-moon" class="fas fa-moon text-lg block transition-transform duration-500 group-hover:rotate-12"></i>
+                    <!-- Sun Icon (Light Mode View - Hidden by default) -->
+                    <i id="theme-icon-sun" class="fas fa-sun text-lg hidden transition-transform duration-500 group-hover:rotate-90"></i>
+                </button>
+
+                <!-- CV Download Button -->
+                <a href="assets/Midas_Araneta_Resume.pdf" target="_blank" download class="w-full flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors">
+                    <span class="relative z-10 flex items-center space-x-2">
+                        <i class="fas fa-file-download"></i>
+                        <span>RESUME</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Hamburger Button (Mobile Only) -->
+            <div class="flex items-center space-x-3 lg:hidden">
+                <!-- Mobile Theme Toggle -->
+                <button id="theme-toggle-mobile" class="p-2 text-slate-800 dark:text-slate-200 hover:text-brand-500 dark:hover:text-brand-400 transition-all duration-300" aria-label="Toggle Mobile Theme">
+                    <i id="theme-icon-mobile" class="fas fa-moon"></i>
+                </button>
+                <button id="mobile-menu-btn" class="p-2 rounded-lg text-slate-800 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" aria-label="Menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-drawer"
+             class="fixed inset-y-0 right-0 w-80 bg-white dark:bg-slate-950 text-slate-900 dark:text-white z-[100] transform translate-x-full transition-transform duration-300 ease-in-out shadow-2xl flex flex-col justify-between border-l border-slate-200 dark:border-slate-800">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-12 h-12 flex items-center justify-center">
+                            <img src="assets/logo.png" alt="Midas Araneta Logo" class="w-11 h-11 object-contain">
+                        </div>
+                       <!-- <span class="font-poppins font-bold text-slate-900 dark:text-white">Midas Araneta</span> -->
+                    </div>
+                    <button id="mobile-drawer-close" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-brand-500">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="home">Home</a>
+                    <a href="#about" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="about">About Me</a>
+                    <a href="#skills" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="skills">Skills & Tools</a>
+                    <a href="#experience" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="experience">Experience</a>
+                    <a href="#projects" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="projects">Projects</a>
+                    <a href="#publications" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="publications">Publications</a>
+                    <a href="#certifications" class="mobile-nav-link px-3 py-2 text-base font-semibold hover:text-brand-500 transition-colors" data-section="certifications">Certifications</a>
+                    <a href="#contact" class="mobile-nav-link px-3 py-2 text-base font-semibold text-slate-700 dark:text-slate-300 hover:text-brand-500 transition-colors" data-section="contact">Contact</a>
+                </div>
+            </div>
+            
+            <div class="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/50">
+                <a href="#contact" class="w-full flex items-center justify-center space-x-2 py-3 px-4 rounaded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold transition-colors">
+                    <i class="fas fa-file-download"></i>
+                    <span>RESUME</span>
+                </a>
+            </div>
+        </div>
+        <div id="mobile-overlay" class="fixed inset-0 bg-white dark:bg-slate-950 z-[95] hidden lg:hidden"></div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden grid-bg z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Column (Content) -->
+                <div class="lg:col-span-7 flex flex-col space-y-6 text-left relative z-20">
+                    <!-- Availability Badge -->
+                    <div class="inline-flex items-center space-x-2.5 bg-emerald-500/10 dark:bg-emerald-500/10 border border-emerald-500/30 px-4 py-1.5 rounded-full self-start shadow-sm shadow-emerald-500/5 hover:bg-emerald-500/20 transition-all duration-300">
+                        <span class="flex h-2.5 w-2.5 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                            Available for New Opportunities
+                        </span>
+                    </div>
+
+                    <!-- Main Heading & Title -->
+                    <div class="space-y-3">
+                        <span class="text-lg lg:text-xl font-medium text-slate-500 dark:text-slate-400 block tracking-wide">Hello, I'm</span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-poppins font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+                             Midas Angelo <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-blue-600 dark:from-brand-400 dark:to-blue-500">Araneta</span>
+                        </h1>
+                    </div>
+
+                    <!-- Professional Title with interactive list cycling -->
+                    <div class="h-10 sm:h-12 flex items-center">
+                        <div class="text-xl sm:text-2xl font-semibold text-brand-600 dark:text-brand-400 font-poppins tracking-wide" id="dynamic-title">
+                            Software QA Engineer
+                        </div>
+                    </div>
+
+                    <!-- Short Introduction -->
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+                        Specializing in manual and supported automation testing for web & mobile applications. Ensuring high-quality, compliant, and seamless user experiences through rigorous validation, SQL data checks, and end-to-end campaign testing — with solid experience in the gaming and betting industry.
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#about" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-blue-700 hover:from-brand-500 hover:to-blue-600 text-white font-semibold text-sm tracking-wide shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 hover:scale-[1.02] transform transition-all duration-300">
+                            Learn More <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                        <div class="flex items-center space-x-3">
+                            <a href="https://linkedin.com/in/midasaraneta/" target="_blank" class="group p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-sm hover:scale-105 transition-all duration-200">
+                                <i class="fab fa-linkedin-in text-lg text-slate-500 dark:text-slate-400 group-hover:text-[#0A66C2] transition-colors duration-300"></i>
+                            </a>
+                            <a href="https://github.com/midasaraneta/" target="_blank" class="group p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-sm hover:scale-105 transition-all duration-200">
+                                <i class="fab fa-github text-lg text-slate-500 dark:text-slate-400 group-hover:text-white transition-colors duration-300"></i>
+                            </a>
+                            <a href="mailto:midas.inquire@gmail.com" class="group p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-sm hover:scale-105 transition-all duration-200">
+                                <i class="fas fa-envelope text-lg text-slate-500 dark:text-slate-400 group-hover:text-[#4285F4] transition-colors duration-300"></i>
+                            </a>
+                            <a href="viber://chat?number=%2B639948250894" target="_blank" class="group p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-sm hover:scale-105 transition-all duration-200">
+                                <i class="fab fa-viber text-lg text-slate-500 dark:text-slate-400 group-hover:text-[#7360F2] transition-colors duration-300"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (Profile & Floating Badges) -->
+                <div class="lg:col-span-5 flex justify-center relative mt-8 lg:mt-0">
+                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 flex items-center justify-center">
+                        
+                        <!-- Pulse/Glow Auras -->
+                        <div class="absolute inset-0 rounded-full bg-brand-500/10 dark:bg-brand-500/5 blur-3xl animate-pulse-slow"></div>
+                        <div class="absolute w-80 h-80 rounded-full border border-brand-500/20 dark:border-brand-500/10 animate-spin-slow"></div>
+                        <div class="absolute w-[105%] h-[105%] rounded-full border-2 border-dashed border-blue-500/20 dark:border-blue-500/10"></div>
+
+                        <!-- Main Profile Avatar -->
+                        <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-[6px] border-white/10 dark:border-slate-900/60 shadow-2xl z-10 group bg-slate-800">
+                            <!-- Visual fallback vector graphics representation instead of raw image URL -->
+                            <img
+                                src="assets/profile.png"
+                                alt="Midas Araneta"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <!-- Ambient glowing ring inside boundary -->
+                            <div class="absolute inset-0 rounded-full border-4 border-brand-500/50 mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
+                        </div>
+
+                        <!-- Floating Expertise Badges -->
+                        <!-- Badge 1: Manual Testing -->
+                        <div class="absolute top-0 -left-6 z-20 animate-float bg-slate-900/95 dark:bg-slate-900/90 text-slate-100 border border-brand-500/40 px-3 py-1.5 rounded-xl flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform">
+                            <i class="fas fa-shield-alt text-brand-400 text-sm animate-pulse drop-shadow-[0_0_10px_rgba(99,102,241,0.9)]"></i>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Quality Assurance</span>
+                        </div>
+
+                        <!-- Badge 2: Test Automation -->
+                        <div class="absolute -right-6 top-8 z-20 animate-float-delayed bg-slate-900/95 dark:bg-slate-900/90 text-slate-100 border border-brand-500/40 px-3 py-1.5 rounded-xl flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform">
+                            <i class="fas fa-cogs text-cyan-400 text-sm animate-pulse drop-shadow-[0_0_10px_rgba(34,211,238,0.9)]"></i>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Automation Testing</span>
+                        </div>
+
+                        <!-- Badge 3: Bug Hunter -->
+                        <div class="absolute -left-10 bottom-14 z-20 animate-float bg-slate-900/95 dark:bg-slate-900/90 text-slate-100 border border-brand-500/40 px-3 py-1.5 rounded-xl flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform">
+                            <i class="fas fa-spider text-amber-500 text-sm animate-pulse"></i>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Bug Hunter</span>
+                        </div>
+
+                        <!-- Badge 4: Data Validation -->
+                        <div class="absolute -right-2 bottom-6 z-20 animate-float-delayed bg-slate-900/95 dark:bg-slate-900/90 text-slate-100 border border-brand-500/40 px-3 py-1.5 rounded-xl flex items-center space-x-2 shadow-lg hover:scale-105 transition-transform">
+                            <i class="fas fa-database text-emerald-400 text-sm animate-pulse drop-shadow-[0_0_10px_rgba(52,211,153,0.9)]"></i>
+                            <span class="text-[10px] font-bold tracking-wider uppercase">Data Validation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Scroll Down Indicator -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 hidden md:flex flex-col items-center space-y-2 z-10">
+                <span class="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">Explore Portfolio</span>
+                <a href="#about" class="animate-bounce p-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full hover:bg-brand-500 hover:text-white transition-colors shadow-md">
+                    <i class="fas fa-chevron-down text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="relative py-24 bg-slate-50 dark:bg-slate-950/40 border-t border-b border-slate-200/50 dark:border-slate-900/60 reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Section Title -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Who am I</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">About Me</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <!-- Left Side: Narrative Summary -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-card p-8 rounded-3xl space-y-6 shadow-sm border border-slate-200/60 dark:border-slate-800/40">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                           Software QA Engineer with 2+ years of experience in web, mobile, and tablet application testing within the regulated gaming and betting industry. Progressed from Web QA Tester to Dev QA Tester, gaining experience across the full software development lifecycle and collaborating with both internal teams and external vendors on large-scale projects, including Adobe Experience Manager (AEM) migrations.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                          Experienced in Functional, Regression, Smoke, Sanity, End-to-End, Cross-Platform, and Compliance Testing for web and mobile applications (Android and iOS). Skilled in backend validation using SQL (MySQL, MSSQL, and Snowflake) to verify data integrity and ensure system accuracy beyond the user interface.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                           Proficient with Adobe Experience Manager (AEM), Bloomreach, Azure DevOps, Jira, Monday.com, and Confluence. Experienced in executing automated test suites using Selenium-based frameworks and continuously expanding automation skills through Python and Java.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            A collaborative and detail-oriented QA professional who thrives in Agile environments, working closely with developers, product teams, business stakeholders, and third-party vendors to deliver stable, high-quality, and compliant software releases.
+                        </p>
+                        
+
+                        <!-- Best At Grid -->
+                        <div class="pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Key Focus Areas</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-brand-50 dark:bg-brand-950/30 text-brand-700 dark:text-brand-300 border border-brand-100 dark:border-brand-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Manual Testing
+                                </span>
+                                <span class="bg-indigo-50 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Supported Automation Testing
+                                </span>
+                                <span class="bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Functional Testing
+                                </span>
+                                <span class="bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-300 border border-purple-100 dark:border-purple-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Regression Testing
+                                </span>
+                                <span class="bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Sanity Testing
+                                </span>
+                                <span class="bg-rose-50 dark:bg-rose-950/30 text-rose-700 dark:text-rose-300 border border-rose-100 dark:border-rose-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Smoke Testing
+                                </span>
+                                <span class="bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border border-amber-100 dark:border-amber-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    SQL Data Validation
+                                </span>
+                                <span class="bg-sky-50 dark:bg-sky-950/30 text-sky-700 dark:text-sky-300 border border-sky-100 dark:border-sky-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    AEM
+                                </span>
+                                <span class="bg-teal-50 dark:bg-teal-950/30 text-teal-700 dark:text-teal-300 border border-teal-100 dark:border-teal-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Bloomreach
+                                </span>
+                                <span class="bg-orange-50 dark:bg-orange-950/30 text-orange-700 dark:text-orange-300 border border-orange-100 dark:border-orange-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Cross-platform & Compliance Testing
+                                </span>
+                                <span class="bg-violet-50 dark:bg-violet-950/30 text-violet-700 dark:text-violet-300 border border-violet-100 dark:border-violet-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Agile
+                                </span>
+                                <span class="bg-lime-50 dark:bg-lime-950/30 text-lime-700 dark:text-lime-300 border border-lime-100 dark:border-lime-900/40 px-3 py-1.5 rounded-xl text-xs font-semibold hover:scale-105 transition-transform cursor-default">
+                                    Defect Management
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Stats Matrix Grid -->
+                <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-4 self-start">
+                
+                    <!-- Stat Card 1 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-briefcase text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="2">0</span>+
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Years Experience
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Stat Card 2 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-diagram-project text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="5">0</span>+
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Major Projects Delivered
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Stat Card 3 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-clipboard-check text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="1000">0</span>+
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Test Cases Executed
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Stat Card 4 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-500 group-hover:bg-violet-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-certificate text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="3">0</span>
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Certifications & Publications
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Stat Card 5 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-bug text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="98">0</span>%
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Pre-Release Defect Detection
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Stat Card 6 -->
+                    <div class="glass-card p-5 rounded-2xl flex items-center gap-4 text-left group min-h-[100px]">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all duration-300">
+                            <i class="fas fa-screwdriver-wrench text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-poppins font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                <span class="counter-val" data-target="8">0</span>+
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-1">
+                                Tools & Technologies Mastered
+                            </div>
+                        </div>
+                    </div> <!-- Stat Card 6 -->
+                </div> <!-- Stats Matrix Grid -->
+            </div>  <!-- grid grid-cols-1 lg:grid-cols-12 -->
+        </div> <!-- max-w-7xl container -->
+    </section>
+
+    <!-- SKILLS & TOOLS SECTION -->
+    <section id="skills" class="py-24 relative overflow-hidden reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Proven Expertise</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Key Technical Areas</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Custom Category Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Category 1: Testing & Reliability -->
+                    <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                                <i class="fas fa-vials text-lg animate-pulse"></i>
+                            </div>
+                            <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Testing Types</h3>
+                        </div>
+
+                         <!-- Skill Grid -->
+                        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-hand-pointer text-sm"></i>
+                                <span>Manual</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-cog text-sm"></i>
+                                <span>Functional</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-rotate text-sm"></i>
+                                <span>Regression</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-search text-sm"></i>
+                                <span>Exploratory</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-shield-alt text-sm"></i>
+                                <span>Sanity</span>
+                            </div>
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                    <i class="fas fa-sitemap text-sm"></i>
+                                    <span>E2E</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-robot text-sm"></i>
+                                <span>Automation</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-database text-sm"></i>
+                                <span>Database</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-clipboard-check text-sm"></i>
+                                <span>Compliance</span>
+                                </div>
+
+                            <div id="testing-more" class="hidden contents">
+
+
+                                <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                    <i class="fas fa-globe text-sm"></i>
+                                    <span>Cross-Browser</span>
+                                </div>
+
+                                <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Mobile</span>
+                                </div>
+
+                                <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                    <i class="fas fa-code text-sm"></i>
+                                    <span>API</span>
+                                </div>
+
+                                <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                    <i class="fas fa-cloud-upload-alt text-sm"></i>
+                                    <span>Migration</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Show More Button -->
+                        <button onclick="toggleTestingMore()" class="mt-5 text-[rgb(82,180,255)] hover:opacity-80 text-xs font-bold">
+                            <span id="testing-more-text">Show More</span>
+                        </button>
+
+                    </div>
+
+                <!-- Category 2: Tools & Platforms -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                            <i class="fas fa-toolbox text-lg animate-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Tools & Platforms</h3>
+                    </div>
+
+                    <!-- Tools Grid -->
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-layer-group text-sm"></i>
+                            <span>AEM</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-seedling text-sm"></i>
+                            <span>Bloomreach</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-database text-sm"></i>
+                            <span>SQL</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-snowflake"></i>
+                            <span>Snowflakes</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-robot text-sm"></i>
+                            <span>Selenium</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-paper-plane text-sm"></i>
+                            <span>Postman</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-code text-sm"></i>
+                            <span>DevTools</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-chart-line text-sm"></i>
+                            <span>Kibana</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-bug text-sm"></i>
+                            <span>Jira</span>
+                        </div>
+
+                        <!-- Hidden items -->
+                        <div id="tools-more" class="hidden contents">
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fab fa-microsoft text-sm"></i>
+                                <span>Azure DevOps</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-calendar-check text-sm"></i>
+                                <span>Monday</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fas fa-wave-square text-sm"></i>
+                                <span>New Relic</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Show More Button -->
+                    <button onclick="toggleToolsMore()" class="mt-5 text-[rgb(82,180,255)] hover:opacity-80 text-xs font-bold">
+                        <span id="tools-more-text">Show More</span>
+                    </button>
+
+                </div>
+
+                <!-- Category 3: AI Tools & Productivity -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                            <i class="fas fa-robot text-lg animate-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">AI Tools & Productivity</h3>
+                    </div>
+
+                    <!-- AI Tools Grid -->
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-comments text-sm"></i>
+                            <span>ChatGPT Enterprise</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fab fa-github text-sm"></i>
+                            <span>GitHub Copilot</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-book-open text-sm"></i>
+                            <span>Confluence Rovo AI</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-wand-magic-sparkles text-sm"></i>
+                            <span>Vibe Coding</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Category 4: Languages & Frameworks -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                            <i class="fas fa-code text-lg animate-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Code & Dev</h3>
+                    </div>
+
+                    <!-- Skills Grid -->
+                   <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fab fa-html5 text-sm"></i>
+                            <span>HTML</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fab fa-css3-alt text-sm"></i>
+                            <span>CSS</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fab fa-js text-sm"></i>
+                            <span>JavaScript</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-code text-sm"></i>
+                            <span>TypeScript</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-terminal text-sm"></i>
+                            <span>C++</span>
+                        </div>
+
+                        <!--  Skills -->
+                        <div id="code-more" class="contents">
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fab fa-python text-sm"></i>
+                                <span>Python</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fab fa-java text-sm"></i>
+                                <span>Java</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fab fa-git-alt text-sm"></i>
+                                <span>Git</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                                <i class="fab fa-github text-sm"></i>
+                                <span>GitHub</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Category 5: Data Validation -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                            <i class="fas fa-server text-lg animate-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Data Validation</h3>
+                    </div>
+                    <!-- Validation Grid -->
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-database text-sm"></i>
+                            <span>UI vs Database</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-check-double text-sm"></i>
+                            <span>Backend Verification</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-bullseye text-sm"></i>
+                            <span>Campaign Rules</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-gift text-sm"></i>
+                            <span>Bonus Validation</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-magnifying-glass-chart text-sm"></i>
+                            <span>Root Cause Analysis</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Category 6: Management & Operations -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                            <i class="fas fa-tasks text-lg animate-pulse"></i>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Management & Agile</h3>
+                    </div>
+
+                    <!-- Agile Grid -->
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-diagram-project text-sm"></i>
+                            <span>SDLC</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-people-group text-sm"></i>
+                            <span>Scrum</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-list-check text-sm"></i>
+                            <span>Agile Delivery</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-water text-sm"></i>
+                            <span>Waterfall</span>
+                        </div>
+
+                        <div class="flex items-center gap-2 px-3 py-3 rounded-xl bg-[rgba(82,180,255,0.07)] border border-[rgba(82,180,255,0.30)] shadow-[0_0_18px_rgba(82,180,255,0.16)] text-[11px] font-semibold text-[rgb(82,180,255)]">
+                            <i class="fas fa-book-open text-sm"></i>
+                            <span>Confluence Docs</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="py-24 bg-slate-50 dark:bg-slate-950/40 border-t border-b border-slate-200/50 dark:border-slate-900/60 reveal-element">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Work History Path</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Professional Experience</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Experience Tabs -->
+                <div class="flex justify-center mb-6">
+                    <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800">
+
+                        <button id="professional-tab"
+                            onclick="showProfessional()"
+                            class="px-5 py-2 rounded-full bg-brand-500 text-white text-sm font-semibold transition-all duration-300">
+                            Professional
+                        </button>
+
+                        <button id="freelance-tab"
+                            onclick="showFreelance()"
+                            class="px-5 py-2 rounded-full text-slate-600 dark:text-slate-300 text-sm font-semibold transition-all duration-300">
+                            Freelance
+                        </button>
+
+                    </div>
+                </div>
+
+            <!-- Vertical Timeline Layout -->
+            <div id="professional-timeline">
+                <!--vertical timeline color-->  
+                <div class="relative border-l-2 border-slate-200 dark:border-slate-800 ml-4 md:ml-32">
+            
+
+                <!-- Timeline Card 3 -->
+                <div class="mb-12 relative pl-8 md:pl-12 group">
+                    <!-- Glowing Node Dot -->
+                    <!--Dot colors are separate-->
+                    <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-blue-500/50"></span>
+                    
+                    <!-- Date Position Badge on Left of Node (Desktop Only) -->
+                    <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                        <span class="text-sm font-bold text-brand-600 dark:text-brand-400">Sept 2024 - Present</span>
+                        <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Current</p>
+                    </div>
+
+                    <!-- Inner Experience Block content -->
+                    <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                         <!-- Company Logo -->
+                        <div class="absolute top-6 right-6">
+                            <img src="assets/evoke-logo.png"
+                                alt="Evoke PLC"
+                                class="h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                            <div>
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-brand-500/10 text-brand-600 dark:text-brand-400">Full Time</span>
+                                <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">Dev QA Tester</h3>
+                                <p class="text-xs text-[#007b6f] dark:text-[#007b6f] font-medium mt-1">evoke</p> 
+                            </div>
+                            <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">Sept 2024 - Present</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                            Ensured high-quality, stable, and compliant software releases through manual testing, in-house automation, and agile practices. Delivered reliable web and mobile applications in a highly regulated gaming environment, supporting system stability, user satisfaction, and on-time delivery.
+                        </p>
+                        <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                            <ul class="space-y-1.5">
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Collaborate with developers during feature development and AEM migration to identify bugs early and support stable production releases.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Maintained 95% test coverage, reducing post-release defects and enabling faster, more reliable deployments.Perform functional, UI, integration, regression, and compliance testing across AEM components, templates, publishing workflows, redirects, permissions, and customer-facing platform.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Validate Bloomreach campaigns, audience segmentation, CRM integrations, and messaging workflows, including email, SMS and push notifications.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Verify cross-browser, cross-platform, and mobile/tablet compatibility across Android and iOS devices.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Execute SQL queries using MSSQL and Snowflake to validate backend data integrity, business logic, and system integrations.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Manage the complete bug lifecycle using Azure DevOps, Jira, and Monday.com from logging through verification and closure.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Execute Selenium-based automated test suites using the company’s in-house automation framework.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Participate in Agile ceremonies, including sprint planning, backlog refinement, daily stand-ups, sprint reviews, and retrospectives.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Card 2 -->
+                <div class="mb-12 relative pl-8 md:pl-12 group">
+                     <!--Dot colors are separate-->
+                    <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-blue-500/50"></span>
+                    
+                    <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                        <span class="text-sm font-bold text-brand-600 dark:text-brand-400">Sept 2023 - Sept 2024</span>
+                        <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Past</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                        <!--Company logo-->
+                        <div class="absolute top-6 right-6">
+                            <img src="assets/evoke-logo.png"
+                                alt="Evoke PLC"
+                                class="h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                            <div>
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-blue-500/10 text-blue-500">Project Based</span>
+                                <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">Web QA Tester</h3>
+                                <p class="text-xs text-[#007b6f] dark:text-[#007b6f] font-medium mt-1">evoke</p> 
+                            </div>
+                            <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">2021 - 2023</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                            Executed comprehensive validation and end-to-end testing of web and mobile applications after development and migration activities, ensuring stable functionality and a seamless user experience. Supported and maintained migrated platforms by validating updates, monitoring system changes, and ensuring ongoing reliability, performance, and operational stability.
+                        </p>
+                        <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                            <ul class="space-y-1.5">
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Performed comprehensive post-migration validation following the Tridion-to-AEM migration, ensuring website stability and content accuracy.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Validated website functionality, navigation, UI consistency, responsive layouts, and cross-browser compatibility.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Designed and maintained structured test cases, test scenarios, and validation checklists for production releases.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Maintained 95%+ test coverage across releases, contributing to stable, compliant, and error-free deployments.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>• Verified bug fixes through regression testing before production release.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Collaborated with internal developers, business analyst, and content teams to deliver high-quality software.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Card 1 -->
+                <div class="relative pl-8 md:pl-12 group">
+                     <!--Dot colors are separate-->
+                    <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-blue-500/50"></span>
+                    
+                    <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                        <span class="text-sm font-bold text-brand-600 dark:text-brand-400">Oct 2020 - Dec 2020</span>
+                        <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Past</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                        <!---company logo-->
+                        <div class="absolute top-6 right-6">
+                            <img src="assets/kooapps-logo.png"
+                                alt="Kooapps"
+                                class="h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                            <div>
+                                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-orange-500/10 text-orange-500">Internship</span>
+                                <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">QA Game Play Tester</h3>
+                                <p class="text-xs text-[#FF7C09] dark:text-[#FF7C09] font-medium mt-1">Kooapps</p> 
+                            </div>
+                            <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">2019 - 2021</span>
+                        </div>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                           Supported quality assurance activities for mobile games, focusing on identifying issues and ensuring smooth gameplay and functionality.
+                        </p>
+                        <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                            <ul class="space-y-1.5">
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span> Identified functional, UI, and gameplay bugs across mobile games.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Isolated issues and documented clear, step-by-step reproduction steps.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Logged all defects accurately in the tracking system and shared documents.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span> Performed manual play-testing and functional checks across different mobile devices.</span>
+                                </li>
+                                <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                    <i class="fas fa-arrow-right text-[10px] text-brand-500 mt-1"></i>
+                                    <span>Verified app behavior, stability, and performance to help improve quality.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- closes timeline wrapper -->
+        </div> <!-- professional-timeline -->
+
+                <!--Freelance Section-->
+                <div id="freelance-timeline" class="hidden" >
+                <!--vertical timeline color-->    
+                <div  class="relative border-l-2 border-brand-500/40 dark:border-brand-500/40 ml-4 md:ml-32">
+
+                    <!-- Freelance Timeline Card 3 -->
+                    <div class="mb-12 relative pl-8 md:pl-12 group">
+                        <!--Dot colors are separate-->
+                        <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 shadow-lg shadow-blue-500/50"></span>
+
+                        <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                            <span class="text-sm font-bold text-blue-500">Feb 2022 - Jan 2023</span>
+                            <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Past</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                            <!--Company logo-->
+                        <div class="absolute top-6 right-6">
+                            <img src="assets/upwork-logo.png"
+                                alt="UpWork"
+                                class="h-10 sm:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                        </div>
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                                <div>
+                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-500">
+                                        Freelance
+                                    </span>
+                                    <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">
+                                        Virtual Assistant - Non Voice
+                                    </h3>
+                                    <p class="text-xs text-emerald-500 font-medium mt-1">
+                                        UpWork
+                                    </p>
+                                </div>
+
+                                <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">
+                                    Feb 2022 - Jan 2023
+                                </span>
+                            </div>
+
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                               Provided customer support by engaging with clients, presenting products, and guiding them through the purchasing process. Maintained accurate customer records and follow-ups using Monday.com while delivering clear communication and ensuring a positive customer experience.
+                            </p>
+
+                            <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                                <ul class="space-y-1.5">
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Engaged with clients, offering our products, and guiding them through the purchase process.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Maintain detailed record of customers interactions, preferences, and inquires for the future reference and follow-up on monday.com.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Delivered clear, effective communication, connecting with a diverse audience.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Freelance Timeline Card 2 -->
+                    <div class="mb-12 relative pl-8 md:pl-12 group">
+                         <!--Dot colors are separate-->
+                        <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-blue-500/50"></span>
+                        
+                        <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                            <span class="text-sm font-bold text-brand-600 dark:text-brand-400">Jan 2022 - Jun 2022</span>
+                            <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Past</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                            <!--Company logo-->
+                            <div class="absolute top-6 right-6">
+                                <img src="assets/upwork-logo.png"
+                                    alt="UpWork"
+                                    class="h-10 sm:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                                <div>
+                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-500">Project Based</span>
+                                    <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">Lead Generation Specialist</h3>
+                                    <p class="text-xs text-emerald-500 font-medium mt-1">UpWork</p> 
+                                </div>
+                                <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">Jan 2022 - Jun 2022</span>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                                Conducted market research to identify target audiences and generate qualified leads using Apollo.io, LinkedIn Sales Navigator, Google, and social media. Tracked lead generation metrics and optimized outreach strategies based on data-driven insights.
+                            </p>
+                            <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                                <ul class="space-y-1.5">
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Researched and identified target audiences or markets.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span> Utilized various channels, such as Apollo.io, Sales Navigator, Google, and Social Media to reach potential leads.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Tracked and analyzed lead generation metrics, making data-driven adjustments as needed.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Freelance Timeline Card 1 -->
+                    <div class="relative pl-8 md:pl-12 group">
+                         <!--Dot colors are separate-->
+                        <span class="absolute -left-2 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform duration-300 shadow-lg shadow-blue-500/50"></span>
+                        
+                        <div class="hidden md:block absolute right-[100%] mr-12 top-0 text-right w-24">
+                            <span class="text-sm font-bold text-brand-600 dark:text-brand-400">Oct 2020 - Dec 2020</span>
+                            <p class="text-[10px] text-slate-400 font-medium tracking-wider uppercase mt-1">Past</p>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl relative border border-slate-200 dark:border-slate-800">
+                            <!---company logo-->
+                            <div class="absolute top-6 right-6">
+                                <img src="assets/upwork-logo.png"
+                                    alt="UpWork"
+                                    class="h-10 sm:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity">
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                                <div>
+                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest uppercase bg-emerald-500/10 text-emerald-500">Part Time</span>
+                                    <h3 class="text-lg font-bold font-poppins text-slate-900 dark:text-white mt-2">Virtual Researcher</h3>
+                                    <p class="text-xs text-emerald-500 font-medium mt-1">UpWork</p> 
+                                </div>
+                                <span class="md:hidden self-start inline-block px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-500 rounded-lg">2019 - 2021</span>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                           Conducted online research across various industries to gather and analyze relevant data. Organized research findings into clear, concise reports to support client requirements and informed decision-making.
+                            </p>
+                            <div class="border-t border-slate-150 dark:border-slate-800/80 pt-4">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Core Contributions</h4>
+                                <ul class="space-y-1.5">
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span> Conducted in-depth online research on various topics, industries, and markets to gather relevant data and insights.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Utilized a variety of research methods, databases, and tools to collect and analyze information effectively.</span>
+                                    </li>
+                                    <li class="text-xs text-slate-600 dark:text-slate-300 flex items-start space-x-2">
+                                        <i class="fas fa-arrow-right text-[10px] text-blue-500 mt-1"></i>
+                                        <span>Organized and consolidated research findings into clear and concise reports or other deliverables to address client needs.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- closes timeline wrapper -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 relative overflow-hidden reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">My Work</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Interactive Project Showcase</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Category Tabs (Filter Controller) -->
+           <div class="flex flex-wrap justify-center items-center gap-2 mb-12 max-w-3xl mx-auto">
+                <button class="project-tab-btn active px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="all">All</button>
+                <button class="project-tab-btn px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="cms">Content Management System</button>
+                <button class="project-tab-btn px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="web-mobile">Web & Mobile</button>
+                <button class="project-tab-btn px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="api-database">API & Database</button>
+                <button class="project-tab-btn px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="qa-process">QA Process</button>
+                <button class="project-tab-btn px-4 py-2 text-xs font-bold tracking-wider uppercase rounded-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all duration-300" data-filter="internship">Internship</button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="project-grid">
+                
+                <!-- Project 1 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="cms">
+                    <div>
+                        <!-- Header -->
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-red-500/10 text-red-600 dark:text-red-400">Content Management System</span>
+                        </div>
+                        <!-- Body -->
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white group-hover:text-brand-500">AEM Website Migration Project</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                            End-to-end testing of AEM content management workflows, including content authoring, publishing, permissions, templates, components, and digital assets.
+                        </p>
+                    </div>
+                    <!-- Footer Info -->
+                    <div>
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Content Authoring</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Publishing</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Components</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">DAM</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="web-mobile">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">Web & Mobile</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Cross-Browser Testing</h3>
+                        <!--Description section-->
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                           Checks function and layout across Chrome, Firefox, Edge. Includes writing test scenarios, logging layout/behavior bugs, and retesting fixes. <command>
+                        </p>
+                    </div>
+                    <div>
+                        <!--Tags-->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Chrome</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Firefox</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Edge</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">DevTools</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="web-mobile">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-orange-500/10 text-orange-600 dark:text-orange-400">Web & Mobile</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Multi-Device & Mobile Testing</h3>
+                        <!--Descriptions-->
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                            Checks phones/tablets – iOS and Android. Ensures responsive layout and features work correctly on smaller screens.
+                        </p>
+                    </div>
+                    <div>
+                        <!--TAGS-->
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">iOS</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Android</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Mobile Simulator</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Responsive UI</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="api-database">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">API & Database</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">API & Database Validation</h3>
+                        <!--Description-->
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                            Tests endpoints via Postman; uses SQL to verify data matches UI. Includes creating API test plans, test cases, and logging mismatches.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Postman</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">SQL</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Snowflakes</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Project 5 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="qa-process">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-600 dark:text-amber-400">QA Process</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">QA Documentation & Defect Management</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                            Create clear test plans, reusable test cases, and detailed defect reports. Organize all QA documentation for easy tracking and repeatability.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Azure DevOps</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Jira</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Bug Reporting</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Confluence</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card-wrapper glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-category="internship">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                                <i class="fas fa-mobile-screen"></i>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md text-[9px] font-extrabold uppercase tracking-widest bg-blue-500/10 text-blue-500">Internship</span>
+                        </div>
+                        <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white">Mobile Application & Game Testing</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2 mb-6">
+                            Functional and usability testing for various mobile game apps using Android device. Verified game flows, UI, and mechanics; logged observations and defects; help validate new builds.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Mobile games</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Functional testing</span>
+                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded text-[10px] font-semibold">Android</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                            <a href="#" class="text-slate-500 hover:text-slate-950 dark:hover:text-white transition-colors"><i class="fab fa-github mr-1.5"></i> Github</a>
+                            <a href="#" class="text-brand-500 hover:text-brand-600 font-semibold text-xs flex items-center">Live Demo <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>  
+                </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- PUBLICATIONS SECTION -->
+    <section id="publications" class="py-24 bg-slate-50 dark:bg-slate-950/40 border-t border-b border-slate-200/50 dark:border-slate-900/60 reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Academic Achievement</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Research & Publications</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Publications Grid -->
+            <div class="flex justify-center">
+            
+                    <!-- Pub 1 -->
+                    <div class="glass-card mx-auto w-full max-w-sm p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:scale-[1.02] transform transition-all duration-300 min-h-[430px]">
+                        <div class="space-y-4 text-center">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center mx-auto">
+                                <i class="fas fa-book-open text-xl"></i>
+                            </div>
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold tracking-widest">
+                                Capstone Project | IEEE
+                            </span>
+                            <h3 class="text-lg font-bold font-poppins text-slate-800 dark:text-white text-left">
+                                Controlled Environment for Spinach Cultured Plant with Health Analysis using Machine Learning
+                            </h3>
+                            <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed text-left">
+                                <p>
+                                    <span id="pub1-short">
+                                        This study developed a controlled environment system for monitoring spinach health and growth in real time using mobile technology, environmental sensors, image processing, and supervised machine learning.
+                                    </span><span id="pub1-full" class="hidden">
+                                      The system collects data on humidity, temperature, and soil conditions, while spinach health is analyzed through image processing using classifiers to distinguish healthy and unhealthy plants. All data are monitored through the Spinach Monitoring Application (SPIMON) and stored in the cloud. Results showed that spinach grows best in a controlled environment.
+                                    </span>
+                                    <button onclick="togglePub1Description()" class="text-brand-500 hover:text-brand-600 font-bold text-xs ml-1">
+                                        <span id="pub1-toggle-text">Read More</span>
+                                    </button>
+                                </p>
+                            </div>
+                            
+                        </div>
+                
+                        <div class="flex flex-col items-center mt-8 pt-4 border-t border-slate-200 dark:border-slate-800/60">
+                
+                            <div class="flex flex-wrap justify-center gap-2 mb-3">
+                
+                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 text-slate-500 rounded text-[9px] font-bold">
+                                    Machine Learning
+                                </span>
+                
+                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 text-slate-500 rounded text-[9px] font-bold">
+                                    Image Processing
+                                </span>
+                
+                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 text-slate-500 rounded text-[9px] font-bold">
+                                    SPIMON
+                                </span>
+                
+                            </div>
+                
+                            <a href="https://ieeexplore.ieee.org/document/9732020" target="_blank" rel="noopener noreferrer" class="text-brand-500 hover:text-brand-600 text-xs font-bold inline-flex items-center">
+                                Read
+                                <i class="fas fa-external-link-alt ml-1.5 text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div> <!-- closes freelance timeline wrapper -->
+                </div>  <!-- freelance-timeline -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" class="py-24 relative overflow-hidden reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Accreditation</span>
+                <h2 class="text-4xl sm:text-5xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Professional Certifications</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Certs Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                <!-- Cert 4 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between group hover:scale-105 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                            <img src="assets/oreilly-logo.png" alt="O'Reilly logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <span class="text-[9px] font-bold text-red-500 uppercase tracking-wider">O'REILLY</span>
+                        <h3 class="text-base font-bold font-poppins text-slate-800 dark:text-white">GenAI QA Masterclass</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            <span>
+                                The holder of this badge has completed the following course by Packt Publishing. The holder of this badge is capable of setting up and configuring AI tools like ChatGPT, Claude, and Google Bard for effective QA automation. 
+                            </span>
+
+                            <span id="genai-full" class="hidden">
+                                They can also create automated functional test cases for web, mobile, and API applications, and develop efficient, data-driven tests with AI-powered tools.
+                            </span>
+
+                            <button onclick="toggleGenAiDescription()" class="text-brand-500 hover:text-brand-600 font-bold ml-1">
+                                <span id="genai-toggle-text">Read More</span>
+                            </button>
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                        <a href="https://www.credly.com/badges/771aad34-8b4d-484d-85db-e244e1b6b7e7/" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center py-2 px-3 bg-brand-500/10 hover:bg-brand-500 text-brand-500 hover:text-white text-xs font-bold rounded-lg transition-all duration-300">
+                            Verify Badge
+                        </a>
+                    </div>
+                </div>
+
+
+                <!-- Cert 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between group hover:scale-105 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                            <img src="assets/oreilly-logo.png" alt="O'Reilly logo" class="w-8 h-8 object-contain">
+                        </div>
+                        <span class="text-[9px] font-bold text-red-500 uppercase tracking-wider">O'REILLY</span>
+                        <h3 class="text-base font-bold font-poppins text-slate-800 dark:text-white">API Testing with Postman</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            <span>
+                                The holder of this badge has completed the following course by Packt Publishing. The holder of this badge is capable of proficiently testing APIs using Postman, diagnosing and addressing issues 
+                            </span>
+
+                            <span id="postman-full" class="hidden">
+                                creating reusable regression testing pipelines, visualizing and debugging APIs, and enhancing career opportunities in software quality assurance.
+                            </span>
+
+                            <button onclick="togglePostmanDescription()" class="text-brand-500 hover:text-brand-600 font-bold ml-1">
+                                <span id="postman-toggle-text">Read More</span>
+                            </button>
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                        <a href="https://www.credly.com/badges/771aad34-8b4d-484d-85db-e244e1b6b7e7/" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center py-2 px-3 bg-brand-500/10 hover:bg-brand-500 text-brand-500 hover:text-white text-xs font-bold rounded-lg transition-all duration-300">
+                            Verify Badge
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between group hover:scale-105 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                            <img src="assets/oreilly-logo.png" alt="O'Reilly logo" class="w-8 h-8 object-contain">
+                        </div>
+
+                        <span class="text-[9px] font-bold text-red-500 uppercase tracking-wider">O'REILLY</span>
+
+                        <h3 class="text-base font-bold font-poppins text-slate-800 dark:text-white">Software Testing Basics</h3>
+
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            <span>
+                                The holder of this badge has completed the following course by O'Reilly Media, Inc. The holder of this badge is capable of understanding the fundamentals of software quality through testing  
+                            </span>
+
+                            <span id="oreilly-basics-full" class="hidden">
+                                implementing DevOps and Agile principles, creating or improving a testing culture, and integrating different processes to improve software quality.
+                            </span>
+
+                            <button onclick="toggleOReillyBasicsDescription()" class="text-brand-500 hover:text-brand-600 font-bold ml-1">
+                                <span id="oreilly-basics-toggle-text">Read More</span>
+                            </button>
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                        <a href="https://www.credly.com/badges/510f3668-a36f-4e29-ad70-8721c4c19d94/" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center py-2 px-3 bg-brand-500/10 hover:bg-brand-500 text-brand-500 hover:text-white text-xs font-bold rounded-lg transition-all duration-300">
+                            Verify Badge
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cert 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between group hover:scale-105 transition-all duration-300">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20">
+                            <img src="assets/oreilly-logo.png" alt="O'Reilly logo" class="w-8 h-8 object-contain">
+                        </div>
+
+                        <span class="text-[9px] font-bold text-red-500 uppercase tracking-wider">O'REILLY</span>
+
+                        <h3 class="text-base font-bold font-poppins text-slate-800 dark:text-white">SQL for Beginners</h3>
+
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            <span>
+                                The holder of this badge has completed the following course by Packt Publishing. The holder of this badge is capable of understanding Microsoft SQL Server databases 
+                            </span>
+
+                            <span id="sql-full" class="hidden">
+                                writing effective SQL queries, manipulating and transforming data, and applying SQL skills to real-world marketing analytics scenarios.
+                            </span>
+
+                            <button onclick="toggleSqlDescription()" class="text-brand-500 hover:text-brand-600 font-bold ml-1">
+                                <span id="sql-toggle-text">Read More</span>
+                            </button>
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+                        <a href="https://www.credly.com/badges/2c8775c7-128f-48b8-96d7-7077566dde73/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-full inline-flex items-center justify-center py-2 px-3 bg-brand-500/10 hover:bg-brand-500 text-brand-500 hover:text-white text-xs font-bold rounded-lg transition-all duration-300">
+                            Verify Badge
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-slate-50 dark:bg-slate-950/40 border-t border-b border-slate-200/50 dark:border-slate-900/60 reveal-element">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold text-brand-600 dark:text-brand-400 tracking-widest uppercase bg-brand-500/10 px-3.5 py-1.5 rounded-full inline-block">Get In Touch</span>
+                <h2 class="text-3xl sm:text-4xl font-poppins font-bold text-slate-900 dark:text-white mt-3">Let's Build Reliable, High-Quality Software</h2>
+                <div class="h-1.5 w-16 bg-brand-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Left Column (Contact Cards) -->
+                <div class="lg:col-span-5 flex flex-col space-y-6">
+                    <h3 class="text-xl font-bold font-poppins text-slate-800 dark:text-white">Contact Information</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Need thorough testing for web, mobile, or enterprise applications? Looking to validate new features, marketing campaigns, migrations,or ensure compliance and stability before release? Let's connect.
+                    </p>
+
+                    <div class="space-y-4">
+                        <!-- Card 1: Email -->
+                        <div class="glass-card p-5 rounded-xl flex items-center space-x-4 border border-slate-200 dark:border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Send Email</span>
+                                <p class="text-sm font-semibold text-slate-800 dark:text-white mt-0.5">midasaraneta@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Phone -->
+                        <div class="glass-card p-5 rounded-xl flex items-center space-x-4 border border-slate-200 dark:border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                                <i class="fas fa-phone-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Direct Call</span>
+                                <p class="text-sm font-semibold text-slate-800 dark:text-white mt-0.5">+63 994 825 0894</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Location -->
+                        <div class="glass-card p-5 rounded-xl flex items-center space-x-4 border border-slate-200 dark:border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Base Location</span>
+                                <p class="text-sm font-semibold text-slate-800 dark:text-white mt-0.5">Cabuyao City, Laguna, Philippines</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (Contact Form) -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+                        <h3 class="text-xl font-bold font-poppins text-slate-800 dark:text-white mb-6">Drop Me a Message</h3>
+                        
+                        <form id="contact-form" action="https://formsubmit.co/midas.inquire@gmail.com" method="POST" class="space-y-5">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_subject" value="New Portfolio Contact Form Message">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="space-y-1.5">
+                                    <label for="name" class="text-xs font-bold uppercase tracking-wider text-slate-400">Full Name</label>
+                                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 transition-all" placeholder="Juan Dela Cruz">
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label for="email" class="text-xs font-bold uppercase tracking-wider text-slate-400">Email Address</label>
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 transition-all" placeholder="juandelacruz@mail.com">
+                                </div>
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label for="subject" class="text-xs font-bold uppercase tracking-wider text-slate-400">Subject</label>
+                                <input type="text" id="subject" name="subject" required class="w-full px-4 py-3 rounded-xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 transition-all" placeholder="Project Collaboration | QA Services | Freelance Work | General Inquiry">
+                            </div>
+
+                            <div class="space-y-1.5">
+                                <label for="message" class="text-xs font-bold uppercase tracking-wider text-slate-400">Your Message</label>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 transition-all" placeholder="Feel free to share details about your project, testing needs, or role - how I can help deliver high-quality results.."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-600 to-blue-700 hover:from-brand-500 hover:to-blue-600 text-white font-semibold text-sm tracking-wide shadow-lg shadow-brand-500/20 hover:scale-[1.01] transition-all duration-300 flex items-center justify-center space-x-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Message</span>
+                            </button>
+                        </form>
+                        <!-- Form feedback message indicator inside card, avoiding native window alert calls -->
+                        <div id="form-feedback" class="hidden mt-4 p-4 rounded-xl text-center text-sm font-semibold"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-100 py-16 border-t border-slate-900 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
+                <!-- Branding Col -->
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-13 h-13 flex items-center justify-center">
+                            <img src="assets/logo.png" alt="Midas Araneta Logo" class="w-12 h-12 object-contain drop-shadow-[0_0_10px_rgba(42,149,255,0.35)]">
+                        </div>
+                        <!--<span class="text-xl font-poppins font-bold tracking-tight text-white"> Midas Angelo Araneta</span>-->
+                    </div>
+                    <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
+                        Delivering high-quality software through rigorous manual testing, data validation, and efficient use of automation tools - ensuring stable, compliant, and seamless user experiences.
+                    </p>
+                </div>
+
+                <!-- Footer Quick Nav (Desktop Category Routing) -->
+                <div class="lg:col-span-4 grid grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-300 mb-4">Core Sections</h4>
+                        <ul class="space-y-2.5">
+                            <li><a href="#home" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Home</a></li>
+                            <li><a href="#about" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">About Me</a></li>
+                            <li><a href="#skills" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Skills</a></li>
+                            <li><a href="#projects" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Projects</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-300 mb-4">Scholarly & Contact</h4>
+                        <ul class="space-y-2.5">
+                            <li><a href="#publications" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Publications</a></li>
+                            <li><a href="#certifications" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Certifications</a></li>
+                            <li><a href="#contact" class="text-xs text-slate-400 hover:text-brand-500 transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Newsletter / Connect info -->
+                <div class="lg:col-span-3 space-y-4">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-slate-300">Social Connect</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">Connect to share insights on manual & supported automation testing, campaign/content validation, and ensuring compliance & stability.</p>
+                    <div class="flex space-x-3">
+                        <a href="https://www.linkedin.com/in/midasaraneta/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors text-slate-400" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors text-slate-400" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:midas.inquire@gmail.com" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition-colors text-slate-400" aria-label="Gmail">
+                            <i class="fas fa-envelope"></i>
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-8 mt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Midas Araneta. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-500 transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 z-[80] w-12 h-12 rounded-full bg-brand-600 hover:bg-brand-500 text-white shadow-xl flex items-center justify-center transform translate-y-20 opacity-0 transition-all duration-300 focus:outline-none" aria-label="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+
+    <!-- COMPREHENSIVE INTERACTIVE SCRIPTS -->
+    <script>
+        // 1. Loader Control
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.style.display = 'none';
+                // Trigger stats count animations when loader finishes
+                triggerStatsCounter();
+            }, 1000);
+        });
+
+        // 2. Custom Hover Cursor Glow (Desktop Only)
+        const cursorGlow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.opacity = '1';
+            cursorGlow.style.left = `${e.clientX}px`;
+            cursorGlow.style.top = `${e.clientY}px`;
+        });
+        window.addEventListener('mouseleave', () => {
+            cursorGlow.style.opacity = '0';
+        });
+
+        // 3. Transparent Sticky Navbar Control
+        const navbar = document.getElementById('navbar');
+
+        function updateNavbar() {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('py-5', 'bg-transparent', 'border-transparent');
+
+                if (document.body.classList.contains('dark')) {
+                    navbar.classList.remove('bg-white/90', 'border-slate-200/50');
+                    navbar.classList.add(
+                        'py-3',
+                        'bg-darkbg/90',
+                        'backdrop-blur-lg',
+                        'border-slate-800/60',
+                        'shadow-md'
+                    );
+                } else {
+                    navbar.classList.remove('bg-darkbg/90', 'border-slate-800/60');
+                    navbar.classList.add(
+                        'py-3',
+                        'bg-white/90',
+                        'backdrop-blur-lg',
+                        'border-slate-200/50',
+                        'shadow-md'
+                    );
+                }
+            } else {
+                navbar.classList.remove(
+                    'py-3',
+                    'bg-white/90',
+                    'bg-darkbg/90',
+                    'backdrop-blur-lg',
+                    'border-slate-200/50',
+                    'border-slate-800/60',
+                    'shadow-md'
+                );
+
+                navbar.classList.add('py-5', 'bg-transparent', 'border-transparent');
+            }
+
+            // Progress Bar
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Back To Top
+            const btt = document.getElementById('back-to-top');
+
+            if (window.scrollY > 400) {
+                btt.classList.remove('translate-y-20', 'opacity-0');
+                btt.classList.add('translate-y-0', 'opacity-100');
+            } else {
+                btt.classList.remove('translate-y-0', 'opacity-100');
+                btt.classList.add('translate-y-20', 'opacity-0');
+            }
+        }
+
+        window.addEventListener('scroll', updateNavbar);
+        updateNavbar();
+
+        // Back to top click behavior
+        document.getElementById('back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 4. Dark/Light Theme Switch Implementation
+        const body = document.getElementById('body');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        
+        const moonIcon = document.getElementById('theme-icon-moon');
+        const sunIcon = document.getElementById('theme-icon-sun');
+        const mobileThemeIcon = document.getElementById('theme-icon-mobile');
+
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark');
+                body.classList.remove('light');
+                body.classList.add('bg-darkbg', 'text-slate-100');
+                body.classList.remove('bg-white', 'text-slate-800');
+                
+                moonIcon.classList.remove('block');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+                sunIcon.classList.add('block');
+                
+                mobileThemeIcon.className = "fas fa-sun";
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                body.classList.remove('bg-darkbg', 'text-slate-100');
+                body.classList.add('bg-white', 'text-slate-800');
+                
+                sunIcon.classList.remove('block');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                moonIcon.classList.add('block');
+                
+                mobileThemeIcon.className = "fas fa-moon";
+                localStorage.setItem('theme', 'light');
+            }
+             updateNavbar();
+        }
+
+        // Initialize from local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'light') {
+            setTheme('light');
+        } else if (savedTheme === 'dark') {
+            setTheme('dark');
+        } else if (systemPrefersDark) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        // Toggle triggers
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark') ? 'light' : 'dark';
+            setTheme(currentTheme);
+        });
+
+        themeToggleMobileBtn.addEventListener('click', () => {
+            const currentTheme = body.classList.contains('dark') ? 'light' : 'dark';
+            setTheme(currentTheme);
+        });
+
+
+        // 5. Mobile Drawer Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+        const mobileDrawerClose = document.getElementById('mobile-drawer-close');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function openDrawer() {
+            mobileDrawer.classList.remove('translate-x-full');
+            mobileOverlay.classList.remove('hidden');
+        }
+
+        function closeDrawer() {
+            mobileDrawer.classList.add('translate-x-full');
+            mobileOverlay.classList.add('hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', openDrawer);
+        mobileDrawerClose.addEventListener('click', closeDrawer);
+        mobileOverlay.addEventListener('click', closeDrawer);
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', closeDrawer);
+        });
+
+
+        // 6. Active Section Highlight Tracking (Intersection Observer)
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-30% 0px -40% 0px',
+            threshold: 0
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const activeId = entry.target.getAttribute('id');
+                    
+                    // Desktop active link update
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('data-section') === activeId) {
+                            link.classList.add('bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400');
+                            link.classList.remove('text-slate-600', 'dark:text-slate-300');
+                        } else {
+                            link.classList.remove('bg-brand-500/10', 'text-brand-600', 'dark:text-brand-400');
+                            link.classList.add('text-slate-600', 'dark:text-slate-300');
+                        }
+                    });
+
+                    // Mobile active link update
+                    mobNavLinks.forEach(link => {
+                    link.classList.remove(
+                        'text-brand-500',
+                        'text-slate-700',
+                        'text-slate-300'
+                    );
+                    if (link.getAttribute('data-section') === activeId) {
+                        link.classList.add('text-brand-500');
+                    } else {
+                        if (document.body.classList.contains('dark')) {
+                            link.classList.add('text-slate-300');
+                        } else {
+                            link.classList.add('text-slate-700');
+                        }
+                    }
+                });
+
+                }
+            });
+            
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+
+        // 7. Reveal Scroll Animation Framework
+        const revealElements = document.querySelectorAll('.reveal-element');
+        const revealObserverOptions = {
+            root: null,
+            rootMargin: '0px 0px -10% 0px',
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Trigger only once
+                }
+            });
+        }, revealObserverOptions);
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+
+        // 8. Stats Counters Animating
+        function triggerStatsCounter() {
+            const counters = document.querySelectorAll('.counter-val');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'), 10);
+                const duration = 2000; // 2 seconds
+                const frameRate = 1000 / 60; // 60 frames per second
+                const steps = duration / frameRate;
+                const increment = target / steps;
+                let current = 0;
+
+                const updateCount = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.floor(current);
+                        setTimeout(updateCount, frameRate);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+
+        // 9. Hero Dynamic Title Cycling Rotation
+        const titles = [
+            "Computer Engineer",
+            "Software QA Engineer",
+            "Dev QA Tester",
+            "Freelancer"
+        ];
+        let currentTitleIndex = 0;
+        const dynamicTitleEl = document.getElementById('dynamic-title');
+
+        function cycleTitles() {
+            dynamicTitleEl.classList.add('opacity-0', '-translate-y-2');
+            setTimeout(() => {
+                currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+                dynamicTitleEl.innerText = titles[currentTitleIndex];
+                dynamicTitleEl.classList.remove('opacity-0', '-translate-y-2');
+            }, 300);
+        }
+        setInterval(cycleTitles, 4000);
+
+
+        // 10. Interactive Projects Filtering Tabs System
+        const filterBtns = document.querySelectorAll('.project-tab-btn');
+        const projectCardWrappers = document.querySelectorAll('.project-card-wrapper');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove(
+                        'active',
+                        'bg-slate-100',
+                        'dark:bg-slate-900',
+                        'text-slate-700',
+                        'dark:text-slate-300'
+                    );
+                    b.classList.add('bg-transparent');
+                });
+
+                btn.classList.add(
+                    'active',
+                    'bg-slate-100',
+                    'dark:bg-slate-900',
+                    'text-slate-700',
+                    'dark:text-slate-300'
+                );
+                btn.classList.remove('bg-transparent');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCardWrappers.forEach(card => {
+                    const categories = card.getAttribute('data-category').split(' ');
+
+                    const shouldShow =
+                        filterValue === 'all' || categories.includes(filterValue);
+
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.9)';
+
+                    setTimeout(() => {
+                        if (shouldShow) {
+                            card.style.display = 'flex';
+
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }, 200);
+                });
+            });
+        });
+
+
+        // 11. Custom Contact Form Handling & Live Status Feedback
+        const contactForm = document.getElementById('contact-form');
+        const formFeedback = document.getElementById('form-feedback');
+
+        contactForm.addEventListener('submit', () => {
+            // Animation button changes
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fas fa-spinner animate-spin"></i> <span>Sending Message...</span>`;
+
+            // Mock successful API transfer timeout delay
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+
+                // Clear input elements
+                contactForm.reset();
+
+                // Display success banner safely inside context (no browser alerts used)
+                formFeedback.className = "mt-4 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20";
+                formFeedback.innerHTML = `<i class="fas fa-check-circle mr-2"></i> Message Transmitted Successfully! I will reply within 24 hours.`;
+                formFeedback.classList.remove('hidden');
+
+                // Auto hide feedback after 6 seconds
+                setTimeout(() => {
+                    formFeedback.classList.add('hidden');
+                }, 6000);
+            }, 1800);
+            
+        }); // Contact form handled by FormSubmit
+
+        function togglePub1Description() {
+            const full = document.getElementById('pub1-full');
+            const text = document.getElementById('pub1-toggle-text');
+        
+            full.classList.toggle('hidden');
+        
+            text.textContent = full.classList.contains('hidden')
+                ? 'Read More'
+                : 'Read Less';
+        }   
+
+        function toggleGenAiDescription() {
+            const full = document.getElementById('genai-full');
+            const text = document.getElementById('genai-toggle-text');
+
+            full.classList.toggle('hidden');
+
+            text.textContent = full.classList.contains('hidden')
+                ? 'Read More'
+                : 'Read Less';
+        }
+
+        function togglePostmanDescription() {
+            const full = document.getElementById('postman-full');
+            const text = document.getElementById('postman-toggle-text');
+
+            full.classList.toggle('hidden');
+
+            text.textContent = full.classList.contains('hidden')
+                ? 'Read More'
+                : 'Read Less';
+        }
+
+        function toggleOReillyBasicsDescription() {
+            const full = document.getElementById('oreilly-basics-full');
+            const text = document.getElementById('oreilly-basics-toggle-text');
+
+            full.classList.toggle('hidden');
+
+            text.textContent = full.classList.contains('hidden')
+                ? 'Read More'
+                : 'Read Less';
+        }
+        function toggleSqlDescription() {
+            const full = document.getElementById('sql-full');
+            const text = document.getElementById('sql-toggle-text');
+
+            full.classList.toggle('hidden');
+
+            text.textContent = full.classList.contains('hidden')
+                ? 'Read More'
+                : 'Read Less';
+        }
+        function toggleTestingMore() {
+            const more = document.getElementById('testing-more');
+            const text = document.getElementById('testing-more-text');
+
+            more.classList.toggle('hidden');
+
+            text.textContent = more.classList.contains('hidden')
+                ? 'Show More'
+                : 'Show Less';
+        } // <!---Category 1: Testing & Reliability js-->
+        function toggleToolsMore() {
+            const more = document.getElementById('tools-more');
+            const text = document.getElementById('tools-more-text');
+
+            more.classList.toggle('hidden');
+
+            text.textContent = more.classList.contains('hidden')
+                ? 'Show More'
+                : 'Show Less';
+        } // <!---Category 2: Tools & Platform js-->
+
+        function toggleCodeMore() {
+            const more = document.getElementById('code-more');
+            const text = document.getElementById('code-more-text');
+
+            more.classList.toggle('hidden');
+
+            text.textContent = more.classList.contains('hidden')
+                ? 'Show More'
+                : 'Show Less';
+        } // <!-- Category 4: Languages & Frameworks js -->
+
+        // Experience Section: Professional & Freelance JS start
+        function showProfessional() {
+            document.getElementById('professional-timeline').classList.remove('hidden');
+            document.getElementById('freelance-timeline').classList.add('hidden');
+
+            document.getElementById('professional-tab').classList.add('bg-brand-500', 'text-white');
+            document.getElementById('freelance-tab').classList.remove('bg-brand-500', 'text-white');
+        }
+
+        function showFreelance() {
+            document.getElementById('freelance-timeline').classList.remove('hidden');
+            document.getElementById('professional-timeline').classList.add('hidden');
+
+            document.getElementById('freelance-tab').classList.add('bg-brand-500', 'text-white');
+            document.getElementById('professional-tab').classList.remove('bg-brand-500', 'text-white');
+        } // Experience Section: Professional & Freelance JS end
+
+    </script>
+</body>
